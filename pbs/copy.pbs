@@ -1,0 +1,9 @@
+#!/bin/bash
+#PBS -N copy
+#PBS -l select=1:ncpus=1:mem=8gb,walltime=72:00:00
+#PBS -j oe
+
+SRC=""
+DST=""
+
+cp -r ${SRC} ${DST}
