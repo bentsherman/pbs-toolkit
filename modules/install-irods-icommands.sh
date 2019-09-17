@@ -14,7 +14,7 @@ if [ ${HOSTNAME} = "login001" ]; then
 fi
 
 module purge
-module add singularity/2.5.2
+module add singularity/3.2
 
 # initialize module directory
 rm -rf ${MODULE_PATH}
@@ -26,7 +26,7 @@ SIMG_PATH="${MODULE_PATH}/irods-icommands-${MODULE_VERSION}.simg"
 singularity build ${SIMG_PATH} docker://systemsgenetics/irods-icommands:${MODULE_VERSION}
 
 # create modulefile
-SINGULARITY="singularity exec -B /scratch2:/scratch2 -B /scratch3:/scratch3 -B /scratch4:/scratch4 ${SIMG_PATH}"
+SINGULARITY="singularity -q exec -B /scratch2:/scratch2 -B /scratch3:/scratch3 -B /scratch4:/scratch4 ${SIMG_PATH}"
 
 mkdir -p ${MODULEDIR}/${MODULE_NAME}
 
@@ -36,7 +36,7 @@ cat > "${MODULEDIR}/${MODULE_NAME}/${MODULE_VERSION}" <<EOF
 ## ${MODULE_NAME}/${MODULE_VERSION}  modulefile
 ##
 module-whatis "Set up environment for ${MODULE_NAME}"
-module add singularity/2.5.2
+module add singularity/3.2
 
 # for Tcl script use only
 set version "3.2.6"
