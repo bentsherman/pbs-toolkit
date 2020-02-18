@@ -22,9 +22,10 @@ if [ ${HOSTNAME} = "login001" ]; then
 fi
 
 module purge
+module add anaconda3/5.1.0
 module add boost
 module add cmake/3.10.0
-module add cuda-toolkit/9.2
+module add cuda-toolkit/10.1.168
 module add gcc/5.4.0
 module add hdf5/1.10.0
 module add openmpi/1.10.7
@@ -57,6 +58,29 @@ cmake .. \
         -DHEMELB_LATTICE_INCOMPRESSIBLE=OFF
 make
 
+# install hemelb setup tool
+CONDA_ENV=$(conda info --envs | awk '{ print $1}' | grep hemelb)
+
+if [[ ${CONDA_ENV} != "hemelb" ]]; then
+	conda create -n hemelb -y python=2.7.14 cython pyyaml
+	conda install -n hemelb -y -c vmtk vmtk
+	conda install -n hemelb -y -c conda-forge cgal
+
+	source activate hemelb
+
+	export CPLUS_INCLUDE_PATH=${HOME}/.conda/envs/hemelb/include:${CPLUS_INCLUDE_PATH}
+	export VTKINCLUDE=${HOME}/.conda/envs/hemelb/include/vtk-8.1
+
+	cd ${BUILDDIR}/Code/geometry
+	cp SiteDataBare.cu SiteDataBare.cc
+
+	cd ${BUILDDIR}/Tools
+	python setup.py build_ext --inplace
+
+	cd ${BUILDDIR}/Tools/setuptool
+	python setup.py build_ext --inplace
+fi
+
 # create modulefile
 mkdir -p ${MODULEDIR}/${MODULE_NAME}
 
@@ -68,7 +92,7 @@ cat > "${MODULEDIR}/${MODULE_NAME}/${MODULE_VERSION}" <<EOF
 module-whatis "Set up environment for ${MODULE_NAME}"
 module add boost
 module add cmake/3.10.0
-module add cuda-toolkit/9.2
+module add cuda-toolkit/10.1.168
 module add gcc/5.4.0
 module add hdf5/1.10.0
 module add openmpi/1.10.7
@@ -80,4 +104,5 @@ set version "3.2.6"
 eval set [ array get env MODULESHOME ]
 
 prepend-path PATH ${MODULE_PATH}/bin
+prepend-path PYTHONPATH ${BUILDDIR}/Tools:${BUILDDIR}/Tools/setuptool
 EOF
