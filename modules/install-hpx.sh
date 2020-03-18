@@ -1,16 +1,10 @@
 #!/bin/bash
 
-# parse command-line arguments
-if [[ $# != 1 ]]; then
-	echo "usage: $0 <version>"
-	exit -1
-fi
-
 MODULEDIR="${HOME}/privatemodules"
 SOFTWAREDIR="${HOME}/software"
 
-MODULE_NAME="ACE"
-MODULE_VERSION="$1"
+MODULE_NAME="hpx"
+MODULE_VERSION="1.4.1"
 MODULE_PATH="${SOFTWAREDIR}/${MODULE_NAME}/${MODULE_VERSION}"
 
 # make sure user is not on the login node
@@ -19,32 +13,41 @@ if [ ${HOSTNAME} = "login001" ]; then
 	exit -1
 fi
 
-# build ACE from source
+# load module dependencies
 module purge
-module add cuda-toolkit/10.1.168
+module add boost/1.71.0
+module add cmake/3.13.1
 module add gcc/5.4.0
 module add git
-module add openmpi/1.10.7
-module add Qt/5.9.2
+module add hwloc/1.11.12
 
-BUILDDIR="${HOME}/ACE"
-LD_LIBRARY_PATH="/usr/lib64:${LD_LIBRARY_PATH}"
-
+# remove previous installation
 rm -rf ${MODULE_PATH}
 
-git clone -q https://github.com/SystemsGenetics/ACE.git ${BUILDDIR}
+# download hpx source
+wget -q https://github.com/STEllAR-GROUP/hpx/archive/${MODULE_VERSION}.zip
+unzip ${MODULE_VERSION}.zip
+rm -f ${MODULE_VERSION}.zip
+
+# build hpx from source
+BUILDDIR="${HOME}/hpx-${MODULE_VERSION}"
 
 cd ${BUILDDIR}
-git checkout -q ${MODULE_VERSION}
 
-cd ${BUILDDIR}/build
-qmake ../src/ACE.pro PREFIX=${MODULE_PATH} CUDADIR=${CUDA_ROOT}
-make -s clean
-make -s -j $(cat ${PBS_NODEFILE} | wc -l)
-make -s qmake_all
-make -s -j $(cat ${PBS_NODEFILE} | wc -l) install
+mkdir build
+cd build
 
-rm -rf ${BUILDDIR}
+cmake \
+	-DCMAKE_INSTALL_PREFIX=${MODULE_PATH} \
+	-DBOOST_ROOT=/software/boost/1.71.0 \
+	-DHWLOC_ROOT=/software/hwloc/1.11.12 \
+	-DHPX_WITH_MALLOC=system \
+	..
+
+make -j $(wc -l ${PBS_NODEFILE}) install
+
+# remove build directory
+#rm -rf ${BUILDDIR}
 
 # create modulefile
 mkdir -p ${MODULEDIR}/${MODULE_NAME}
@@ -55,10 +58,9 @@ cat > "${MODULEDIR}/${MODULE_NAME}/${MODULE_VERSION}" <<EOF
 ## ${MODULE_NAME}/${MODULE_VERSION}  modulefile
 ##
 module-whatis "Set up environment for ${MODULE_NAME}"
-module add cuda-toolkit/10.1.168
+module add boost/1.71.0
 module add gcc/5.4.0
-module add openmpi/1.10.7
-module add Qt/5.9.2
+module add hwloc/1.11.12
 
 # for Tcl script use only
 set version "3.2.6"
