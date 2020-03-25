@@ -15,11 +15,22 @@ fi
 
 # load module dependencies
 module purge
-module add boost/1.71.0
+module add anaconda3/5.1.0
 module add cmake/3.13.1
+module add cuda-toolkit/10.1.168
 module add gcc/5.4.0
-module add git
-module add hwloc/1.11.12
+
+# create conda environment
+CONDA_ENV=$(conda info --envs | awk '{ print $1}' | grep hpx)
+
+if [[ ${CONDA_ENV} != "hpx" ]]; then
+	conda create -n hpx -y \
+		libboost=1.67.0 \
+		conda-forge::libhwloc=1.11.9
+fi
+
+# load conda environment
+source activate hpx
 
 # remove previous installation
 rm -rf ${MODULE_PATH}
@@ -39,15 +50,15 @@ cd build
 
 cmake \
 	-DCMAKE_INSTALL_PREFIX=${MODULE_PATH} \
-	-DBOOST_ROOT=/software/boost/1.71.0 \
-	-DHWLOC_ROOT=/software/hwloc/1.11.12 \
+	-DBOOST_ROOT=${HOME}/.conda/envs/hpx \
+	-DHWLOC_ROOT=${HOME}/.conda/envs/hpx \
 	-DHPX_WITH_MALLOC=system \
 	..
 
 make -j $(wc -l ${PBS_NODEFILE}) install
 
 # remove build directory
-#rm -rf ${BUILDDIR}
+rm -rf ${BUILDDIR}
 
 # create modulefile
 mkdir -p ${MODULEDIR}/${MODULE_NAME}
@@ -58,9 +69,7 @@ cat > "${MODULEDIR}/${MODULE_NAME}/${MODULE_VERSION}" <<EOF
 ## ${MODULE_NAME}/${MODULE_VERSION}  modulefile
 ##
 module-whatis "Set up environment for ${MODULE_NAME}"
-module add boost/1.71.0
 module add gcc/5.4.0
-module add hwloc/1.11.12
 
 # for Tcl script use only
 set version "3.2.6"
