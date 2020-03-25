@@ -77,6 +77,8 @@ set version "3.2.6"
 # Make sure no other hpc modulefiles are loaded before loading this module
 eval set [ array get env MODULESHOME ]
 
+prepend-path LD_LIBRARY_PATH     ${HOME}/.conda/envs/hpx/lib
+
 prepend-path PATH                ${MODULE_PATH}/bin
 prepend-path CPLUS_INCLUDE_PATH  ${MODULE_PATH}/include
 prepend-path LD_LIBRARY_PATH     ${MODULE_PATH}/lib64
