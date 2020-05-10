@@ -41,6 +41,7 @@ git clone -q https://github.com/SystemsGenetics/KINC.git ${BUILDDIR}
 cd ${BUILDDIR}
 git checkout -q ${MODULE_VERSION}
 
+mkdir ${BUILDDIR}/build
 cd ${BUILDDIR}/build
 qmake ../src/KINC.pro PREFIX=${MODULE_PATH} CUDADIR=${CUDA_ROOT}
 make -s clean

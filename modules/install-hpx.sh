@@ -79,9 +79,9 @@ eval set [ array get env MODULESHOME ]
 
 prepend-path LD_LIBRARY_PATH     ${HOME}/.conda/envs/hpx/lib
 
-prepend-path PATH                ${MODULE_PATH}/bin
-prepend-path CPLUS_INCLUDE_PATH  ${MODULE_PATH}/include
-prepend-path LD_LIBRARY_PATH     ${MODULE_PATH}/lib64
-prepend-path LIBRARY_PATH        ${MODULE_PATH}/lib64
-prepend-path PKG_CONFIG_PATH     ${MODULE_PATH}/lib64/pkgconfig
+prepend-path PATH             ${MODULE_PATH}/bin
+prepend-path INCLUDE_PATH     ${MODULE_PATH}/include
+prepend-path LD_LIBRARY_PATH  ${MODULE_PATH}/lib64
+prepend-path LIBRARY_PATH     ${MODULE_PATH}/lib64
+prepend-path PKG_CONFIG_PATH  ${MODULE_PATH}/lib64/pkgconfig
 EOF
