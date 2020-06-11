@@ -25,6 +25,7 @@ fi
 module purge
 module add use.own
 module add ACE/${ACE_VERSION}
+module add boost
 module add git
 module add gsl/2.3
 module add openblas/0.3.5
