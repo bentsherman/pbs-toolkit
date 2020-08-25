@@ -1,9 +1,9 @@
 #!/bin/bash
 
-MODULEDIR="${HOME}/privatemodules"
+MODULEDIR="${HOME}/modules"
 SOFTWAREDIR="${HOME}/software"
 
-MODULE_NAME="Qt"
+MODULE_NAME="qt"
 MODULE_VERSION="5.9.6"
 MODULE_PATH="${SOFTWAREDIR}/${MODULE_NAME}/${MODULE_VERSION}"
 

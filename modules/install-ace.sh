@@ -6,10 +6,10 @@ if [[ $# != 1 ]]; then
 	exit -1
 fi
 
-MODULEDIR="${HOME}/privatemodules"
+MODULEDIR="${HOME}/modules"
 SOFTWAREDIR="${HOME}/software"
 
-MODULE_NAME="ACE"
+MODULE_NAME="ace"
 MODULE_VERSION="$1"
 MODULE_PATH="${SOFTWAREDIR}/${MODULE_NAME}/${MODULE_VERSION}"
 
@@ -21,13 +21,11 @@ fi
 
 # build ACE from source
 module purge
-module add cuda-toolkit/10.1.168
-module add gcc/5.4.0
-module add git
-module add openmpi/1.10.7
-module add Qt/5.9.2
+module add cuda/10.2.89-gcc/8.3.1
+module add openmpi/3.1.6-gcc/8.3.1-cuda10_2-ucx
+module add qt/5.14.2-gcc/8.3.1
 
-BUILDDIR="${HOME}/ACE"
+BUILDDIR="${HOME}/ace"
 LD_LIBRARY_PATH="/usr/lib64:${LD_LIBRARY_PATH}"
 
 rm -rf ${MODULE_PATH}
@@ -55,10 +53,9 @@ cat > "${MODULEDIR}/${MODULE_NAME}/${MODULE_VERSION}" <<EOF
 ## ${MODULE_NAME}/${MODULE_VERSION}  modulefile
 ##
 module-whatis "Set up environment for ${MODULE_NAME}"
-module add cuda-toolkit/10.1.168
-module add gcc/5.4.0
-module add openmpi/1.10.7
-module add Qt/5.9.2
+module add cuda/10.2.89-gcc/8.3.1
+module add openmpi/3.1.6-gcc/8.3.1-cuda10_2-ucx
+module add qt/5.14.2-gcc/8.3.1
 
 # for Tcl script use only
 set version "3.2.6"

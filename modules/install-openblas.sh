@@ -1,6 +1,6 @@
 #!/bin/bash
 
-MODULEDIR="${HOME}/privatemodules"
+MODULEDIR="${HOME}/modules"
 SOFTWAREDIR="${HOME}/software"
 
 MODULE_NAME="openblas"
@@ -15,7 +15,6 @@ fi
 
 # build openblas from source
 module purge
-module add use.own
 module add git
 
 rm -rf ${MODULE_PATH}

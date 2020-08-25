@@ -6,7 +6,7 @@ if [[ $# != 1 ]]; then
 	exit -1
 fi
 
-MODULEDIR="${HOME}/privatemodules"
+MODULEDIR="${HOME}/modules"
 SOFTWAREDIR="${HOME}/software"
 
 MODULE_NAME="nextflow"

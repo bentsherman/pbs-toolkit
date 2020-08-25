@@ -1,6 +1,6 @@
 #!/bin/bash
 
-MODULEDIR="${HOME}/privatemodules"
+MODULEDIR="${HOME}/modules"
 SOFTWAREDIR="${HOME}/software"
 
 MODULE_NAME="KINC"
@@ -15,7 +15,7 @@ fi
 
 # build KINC from source
 module purge
-module add use.own
+module use ${HOME}/modules
 module add git
 module add gsl/2.3
 module add mixmod/3.2.2

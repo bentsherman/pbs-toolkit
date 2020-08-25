@@ -6,10 +6,10 @@ if [[ $# != 2 ]]; then
 	exit -1
 fi
 
-MODULEDIR="${HOME}/privatemodules"
+MODULEDIR="${HOME}/modules"
 SOFTWAREDIR="${HOME}/software"
 
-MODULE_NAME="KINC"
+MODULE_NAME="kinc"
 MODULE_VERSION="$1"
 MODULE_PATH="${SOFTWAREDIR}/${MODULE_NAME}/${MODULE_VERSION}"
 
@@ -23,15 +23,14 @@ fi
 
 # build KINC from source
 module purge
-module add use.own
-module add ACE/${ACE_VERSION}
-module add boost
-module add git
-module add gsl/2.3
-module add openblas/0.3.5
+module use ${HOME}/modules
+module add ace/${ACE_VERSION}
+module add boost/1.73.0-gcc/8.3.1-nompi
+module add gsl/2.3-gcc/8.3.1
+module add openblas/0.3.10-gcc/8.3.1-openmp
 module add statslib
 
-BUILDDIR="${HOME}/KINC"
+BUILDDIR="${HOME}/kinc"
 CPLUS_INCLUDE_PATH="${OPENBLAS_DIR}/include:${CPLUS_INCLUDE_PATH}"
 LD_LIBRARY_PATH="/usr/lib64:${LD_LIBRARY_PATH}"
 
@@ -61,9 +60,10 @@ cat > "${MODULEDIR}/${MODULE_NAME}/${MODULE_VERSION}" <<EOF
 ## ${MODULE_NAME}/${MODULE_VERSION}  modulefile
 ##
 module-whatis "Set up environment for ${MODULE_NAME}"
-module add ACE/${ACE_VERSION}
-module add gsl/2.3
-module add openblas/0.3.5
+module add ace/${ACE_VERSION}
+module add boost/1.73.0-gcc
+module add gsl/2.3-gcc/8.3.1
+module add openblas/0.3.10-gcc/8.3.1-openmp
 module add statslib
 
 # for Tcl script use only

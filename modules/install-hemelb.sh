@@ -8,7 +8,7 @@ fi
 
 LATTICE_TYPE="$1"
 
-MODULEDIR="${HOME}/privatemodules"
+MODULEDIR="${HOME}/modules"
 SOFTWAREDIR="${HOME}/software"
 
 MODULE_NAME="hemelb"
@@ -21,14 +21,16 @@ if [ ${HOSTNAME} = "login001" ]; then
 	exit -1
 fi
 
+# load modules
 module purge
-module add anaconda3/5.1.0
-module add boost
-module add cmake/3.10.0
-module add cuda-toolkit/10.1.168
-module add gcc/5.4.0
-module add hdf5/1.10.0
-module add openmpi/1.10.7
+module add anaconda3/5.1.0-gcc/8.3.1
+module add boost/1.73.0-gcc/8.3.1-nompi
+module add cmake/3.17.3-gcc/8.3.1
+module add cuda/10.2.89-gcc/8.3.1
+module add hdf5/1.12.0-gcc/8.3.1-cuda10_2-mpi
+module add openmpi/3.1.6-gcc/8.3.1-cuda10_2-ucx
+
+export CPLUS_INCLUDE_PATH="/usr/include/tirpc:${CPLUS_INCLUDE_PATH}"
 
 # build hemelb-dev from source
 BUILDDIR="${HOME}/workspace/hemelb-dev"
@@ -44,22 +46,21 @@ mkdir -p ${BUILDDIR}/build
 cd ${BUILDDIR}/build
 
 cmake .. \
-	-DBOOST_ROOT:PATHNAME=${BOOST} \
 	-DCMAKE_INSTALL_PREFIX=${MODULE_PATH} \
-        -DHEMELB_BUILD_MAIN=ON \
-        -DHEMELB_BUILD_MULTISCALE=OFF \
-        -DHEMELB_BUILD_TESTS_ALL=ON \
-        -DHEMELB_BUILD_TESTS_FUNCTIONAL=OFF \
-        -DHEMELB_BUILD_TESTS_UNIT=OFF \
+	-DHEMELB_BUILD_MAIN=ON \
+	-DHEMELB_BUILD_MULTISCALE=OFF \
+	-DHEMELB_BUILD_TESTS_ALL=OFF \
+	-DHEMELB_BUILD_TESTS_FUNCTIONAL=OFF \
+	-DHEMELB_BUILD_TESTS_UNIT=OFF \
 	-DHEMELB_SUBPROJECT_MAKE_JOBS=$(cat ${PBS_NODEFILE} | wc -l) \
-        -DHEMELB_OPTIMISATION="-O3" \
-        -DHEMELB_PROFILING="" \
-        -DHEMELB_LATTICE=${LATTICE_TYPE} \
-        -DHEMELB_LATTICE_INCOMPRESSIBLE=OFF
+	-DHEMELB_OPTIMISATION="-O3" \
+	-DHEMELB_PROFILING="" \
+	-DHEMELB_LATTICE=${LATTICE_TYPE} \
+	-DHEMELB_LATTICE_INCOMPRESSIBLE=OFF
 make
 
 # install hemelb setup tool
-CONDA_ENV=$(conda info --envs | awk '{ print $1}' | grep hemelb)
+CONDA_ENV=$(conda info --envs | awk '{ print $1 }' | grep hemelb)
 
 if [[ ${CONDA_ENV} != "hemelb" ]]; then
 	conda create -n hemelb -y python=2.7.14 cython pyyaml
@@ -90,12 +91,11 @@ cat > "${MODULEDIR}/${MODULE_NAME}/${MODULE_VERSION}" <<EOF
 ## ${MODULE_NAME}/${MODULE_VERSION}  modulefile
 ##
 module-whatis "Set up environment for ${MODULE_NAME}"
-module add boost
-module add cmake/3.10.0
-module add cuda-toolkit/10.1.168
-module add gcc/5.4.0
-module add hdf5/1.10.0
-module add openmpi/1.10.7
+module add boost/1.73.0-gcc/8.3.1-nompi
+module add cmake/3.17.3-gcc/8.3.1
+module add cuda/10.2.89-gcc/8.3.1
+module add hdf5/1.12.0-gcc/8.3.1-cuda10_2-mpi
+module add openmpi/3.1.6-gcc/8.3.1-cuda10_2-ucx
 
 # for Tcl script use only
 set version "3.2.6"

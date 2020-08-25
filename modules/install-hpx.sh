@@ -1,6 +1,6 @@
 #!/bin/bash
 
-MODULEDIR="${HOME}/privatemodules"
+MODULEDIR="${HOME}/modules"
 SOFTWAREDIR="${HOME}/software"
 
 MODULE_NAME="hpx"
