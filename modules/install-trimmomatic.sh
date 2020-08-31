@@ -34,8 +34,6 @@ set version "3.2.6"
 # Make sure no other hpc modulefiles are loaded before loading this module
 eval set [ array get env MODULESHOME ]
 
-module load java/1.8.0
-
 prepend-path CLASSPATH ${MODULE_PATH}/trimmomatic-0.38.jar
 set-alias trimmomatic {java -jar ${MODULE_PATH}/trimmomatic-0.38.jar}
 EOF
