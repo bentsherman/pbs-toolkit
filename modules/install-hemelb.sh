@@ -1,18 +1,19 @@
 #!/bin/bash
 
 # parse command-line arguments
-if [[ $# != 1 ]]; then
-	echo "usage: $0 <lattice-type>"
+if [[ $# != 2 ]]; then
+	echo "usage: $0 <lattice-type <gpu-model>>"
 	exit -1
 fi
 
 LATTICE_TYPE="$1"
+GPU_MODEL="$2"
 
 MODULEDIR="${HOME}/modules"
 SOFTWAREDIR="${HOME}/software"
 
 MODULE_NAME="hemelb"
-MODULE_VERSION="dev-${LATTICE_TYPE}"
+MODULE_VERSION="${LATTICE_TYPE}-${GPU_MODEL}"
 MODULE_PATH="${SOFTWAREDIR}/${MODULE_NAME}/${MODULE_VERSION}"
 
 # make sure user is not on the login node

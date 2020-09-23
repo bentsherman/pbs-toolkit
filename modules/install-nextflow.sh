@@ -19,8 +19,6 @@ if [ ${HOSTNAME} = "login001" ]; then
 	exit -1
 fi
 
-module add java/1.8.0
-
 # create nextflow binary
 mkdir -p "${SOFTWAREDIR}/${MODULE_NAME}/${MODULE_VERSION}"
 
@@ -36,7 +34,6 @@ cat > "${MODULEDIR}/${MODULE_NAME}/${MODULE_VERSION}" <<EOF
 ## ${MODULE_NAME}/${MODULE_VERSION}  modulefile
 ##
 module-whatis "Set up environment for ${MODULE_NAME}"
-module add java/1.8.0
 
 # for Tcl script use only
 set version "3.2.6"
