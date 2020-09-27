@@ -24,12 +24,11 @@ fi
 
 # load modules
 module purge
-module add anaconda3/5.1.0-gcc/8.3.1
-module add boost/1.73.0-gcc/8.3.1-nompi
-module add cmake/3.17.3-gcc/8.3.1
-module add cuda/10.2.89-gcc/8.3.1
-module add hdf5/1.12.0-gcc/8.3.1-cuda10_2-mpi
-module add openmpi/3.1.6-gcc/8.3.1-cuda10_2-ucx
+module load anaconda3/5.1.0-gcc/8.3.1
+module load boost/1.73.0-gcc/8.3.1-nompi
+module load cmake/3.17.3-gcc/8.3.1
+module load hdf5/1.12.0-gcc/8.3.1-cuda11_0-mpi
+module load openmpi/3.1.5-gcc/8.3.1-cuda11_0-ucx
 
 export CPLUS_INCLUDE_PATH="/usr/include/tirpc:${CPLUS_INCLUDE_PATH}"
 
@@ -57,7 +56,8 @@ cmake .. \
 	-DHEMELB_OPTIMISATION="-O3" \
 	-DHEMELB_PROFILING="" \
 	-DHEMELB_LATTICE=${LATTICE_TYPE} \
-	-DHEMELB_LATTICE_INCOMPRESSIBLE=OFF
+	-DHEMELB_LATTICE_INCOMPRESSIBLE=OFF \
+	-DHEMELB_CUDA_AWARE_MPI=OFF
 make
 
 # install hemelb setup tool
@@ -92,11 +92,10 @@ cat > "${MODULEDIR}/${MODULE_NAME}/${MODULE_VERSION}" <<EOF
 ## ${MODULE_NAME}/${MODULE_VERSION}  modulefile
 ##
 module-whatis "Set up environment for ${MODULE_NAME}"
-module add boost/1.73.0-gcc/8.3.1-nompi
-module add cmake/3.17.3-gcc/8.3.1
-module add cuda/10.2.89-gcc/8.3.1
-module add hdf5/1.12.0-gcc/8.3.1-cuda10_2-mpi
-module add openmpi/3.1.6-gcc/8.3.1-cuda10_2-ucx
+module load boost/1.73.0-gcc/8.3.1-nompi
+module load cmake/3.17.3-gcc/8.3.1
+module load hdf5/1.12.0-gcc/8.3.1-cuda11_0-mpi
+module load openmpi/3.1.5-gcc/8.3.1-cuda11_0-ucx
 
 # for Tcl script use only
 set version "3.2.6"
