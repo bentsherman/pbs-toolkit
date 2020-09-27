@@ -15,8 +15,8 @@ fi
 
 # build ACE from source
 module purge
-module add gcc/5.4.0
-module add git
+module load gcc/5.4.0
+module load git
 
 rm -rf ${MODULE_PATH}
 
@@ -41,7 +41,7 @@ cat > "${MODULEDIR}/${MODULE_NAME}/${MODULE_VERSION}" <<EOF
 ## ${MODULE_NAME}/${MODULE_VERSION}  modulefile
 ##
 module-whatis "Set up environment for ${MODULE_NAME}"
-module add gcc/5.4.0
+module load gcc/5.4.0
 
 # for Tcl script use only
 set version "3.2.6"

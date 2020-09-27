@@ -14,7 +14,7 @@ if [ ${HOSTNAME} = "login001" ]; then
 fi
 
 module purge
-module add singularity/3.2
+module load singularity/3.2
 
 # initialize module directory
 rm -rf ${MODULE_PATH}
@@ -36,7 +36,7 @@ cat > "${MODULEDIR}/${MODULE_NAME}/${MODULE_VERSION}" <<EOF
 ## ${MODULE_NAME}/${MODULE_VERSION}  modulefile
 ##
 module-whatis "Set up environment for ${MODULE_NAME}"
-module add singularity/3.2
+module load singularity/3.2
 
 # for Tcl script use only
 set version "3.2.6"

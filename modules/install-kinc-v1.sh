@@ -16,10 +16,10 @@ fi
 # build KINC from source
 module purge
 module use ${HOME}/modules
-module add git
-module add gsl/2.3
-module add mixmod/3.2.2
-module add openblas/0.3.5
+module load git
+module load gsl/2.3
+module load mixmod/3.2.2
+module load openblas/0.3.5
 
 BUILDDIR="${HOME}/KINC"
 CPLUS_INCLUDE_PATH="${OPENBLAS_DIR}/include:${CPLUS_INCLUDE_PATH}"
@@ -48,9 +48,9 @@ cat > "${MODULEDIR}/${MODULE_NAME}/${MODULE_VERSION}" <<EOF
 ## ${MODULE_NAME}/${MODULE_VERSION}  modulefile
 ##
 module-whatis "Set up environment for ${MODULE_NAME}"
-module add gsl/2.3
-module add mixmod/3.2.2
-module add openblas/0.3.5
+module load gsl/2.3
+module load mixmod/3.2.2
+module load openblas/0.3.5
 
 # for Tcl script use only
 set version "3.2.6"

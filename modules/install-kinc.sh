@@ -24,11 +24,11 @@ fi
 # build KINC from source
 module purge
 module use ${HOME}/modules
-module add ace/${ACE_VERSION}
-module add boost/1.73.0-gcc/8.3.1-nompi
-module add gsl/2.3-gcc/8.3.1
-module add openblas/0.3.10-gcc/8.3.1-openmp
-module add statslib
+module load ace/${ACE_VERSION}
+module load boost/1.73.0-gcc/8.3.1-nompi
+module load gsl/2.3-gcc/8.3.1
+module load openblas/0.3.10-gcc/8.3.1-openmp
+module load statslib
 
 BUILDDIR="${HOME}/kinc"
 CPLUS_INCLUDE_PATH="${OPENBLAS_DIR}/include:${CPLUS_INCLUDE_PATH}"
@@ -60,11 +60,11 @@ cat > "${MODULEDIR}/${MODULE_NAME}/${MODULE_VERSION}" <<EOF
 ## ${MODULE_NAME}/${MODULE_VERSION}  modulefile
 ##
 module-whatis "Set up environment for ${MODULE_NAME}"
-module add ace/${ACE_VERSION}
-module add boost/1.73.0-gcc
-module add gsl/2.3-gcc/8.3.1
-module add openblas/0.3.10-gcc/8.3.1-openmp
-module add statslib
+module load ace/${ACE_VERSION}
+module load boost/1.73.0-gcc
+module load gsl/2.3-gcc/8.3.1
+module load openblas/0.3.10-gcc/8.3.1-openmp
+module load statslib
 
 # for Tcl script use only
 set version "3.2.6"

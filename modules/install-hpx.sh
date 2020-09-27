@@ -15,10 +15,10 @@ fi
 
 # load module dependencies
 module purge
-module add anaconda3/5.1.0
-module add cmake/3.13.1
-module add cuda-toolkit/10.1.168
-module add gcc/5.4.0
+module load anaconda3/5.1.0
+module load cmake/3.13.1
+module load cuda-toolkit/10.1.168
+module load gcc/5.4.0
 
 # create conda environment
 CONDA_ENV=$(conda info --envs | awk '{ print $1}' | grep hpx)
@@ -69,7 +69,7 @@ cat > "${MODULEDIR}/${MODULE_NAME}/${MODULE_VERSION}" <<EOF
 ## ${MODULE_NAME}/${MODULE_VERSION}  modulefile
 ##
 module-whatis "Set up environment for ${MODULE_NAME}"
-module add gcc/5.4.0
+module load gcc/5.4.0
 
 # for Tcl script use only
 set version "3.2.6"

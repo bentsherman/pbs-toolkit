@@ -15,7 +15,7 @@ fi
 
 # build openblas from source
 module purge
-module add git
+module load git
 
 rm -rf ${MODULE_PATH}
 

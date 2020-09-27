@@ -15,10 +15,10 @@ fi
 
 # build BioDepVis from source
 module purge
-module add cuda-toolkit/9.2
-module add gcc/5.4.0
-module add git
-module add Qt/5.9.2
+module load cuda-toolkit/9.2
+module load gcc/5.4.0
+module load git
+module load Qt/5.9.2
 
 BUILDDIR="${HOME}/BioDep-Vis"
 
@@ -46,9 +46,9 @@ cat > "${MODULEDIR}/${MODULE_NAME}/${MODULE_VERSION}" <<EOF
 ## ${MODULE_NAME}/${MODULE_VERSION}  modulefile
 ##
 module-whatis "Set up environment for ${MODULE_NAME}"
-module add cuda-toolkit/9.2
-module add gcc/5.4.0
-module add Qt/5.9.2
+module load cuda-toolkit/9.2
+module load gcc/5.4.0
+module load Qt/5.9.2
 
 # for Tcl script use only
 set version "3.2.6"

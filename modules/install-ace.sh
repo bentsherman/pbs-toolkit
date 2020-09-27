@@ -21,9 +21,9 @@ fi
 
 # build ACE from source
 module purge
-module add cuda/10.2.89-gcc/8.3.1
-module add openmpi/3.1.6-gcc/8.3.1-cuda10_2-ucx
-module add qt/5.14.2-gcc/8.3.1
+module load cuda/10.2.89-gcc/8.3.1
+module load openmpi/3.1.6-gcc/8.3.1-cuda10_2-ucx
+module load qt/5.14.2-gcc/8.3.1
 
 BUILDDIR="${HOME}/ace"
 LD_LIBRARY_PATH="/usr/lib64:${LD_LIBRARY_PATH}"
@@ -53,9 +53,9 @@ cat > "${MODULEDIR}/${MODULE_NAME}/${MODULE_VERSION}" <<EOF
 ## ${MODULE_NAME}/${MODULE_VERSION}  modulefile
 ##
 module-whatis "Set up environment for ${MODULE_NAME}"
-module add cuda/10.2.89-gcc/8.3.1
-module add openmpi/3.1.6-gcc/8.3.1-cuda10_2-ucx
-module add qt/5.14.2-gcc/8.3.1
+module load cuda/10.2.89-gcc/8.3.1
+module load openmpi/3.1.6-gcc/8.3.1-cuda10_2-ucx
+module load qt/5.14.2-gcc/8.3.1
 
 # for Tcl script use only
 set version "3.2.6"
