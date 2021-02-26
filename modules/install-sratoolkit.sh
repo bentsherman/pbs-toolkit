@@ -10,13 +10,13 @@ MODULE_PATH="${SOFTWAREDIR}/${MODULE_NAME}/${MODULE_VERSION}"
 # download and extract sratoolkit
 mkdir -p ${SOFTWAREDIR}/${MODULE_NAME}
 
-wget -q https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/2.9.2/sratoolkit.2.9.2-centos_linux64.tar.gz
-tar -xf sratoolkit.2.9.2-centos_linux64.tar.gz
+wget -q https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/${MODULE_VERSION}/sratoolkit.${MODULE_VERSION}-centos_linux64.tar.gz
+tar -xf sratoolkit.${MODULE_VERSION}-centos_linux64.tar.gz
 
 rm -rf ${MODULE_PATH}
-mv sratoolkit.2.9.2-centos_linux64 ${MODULE_PATH}
+mv sratoolkit.${MODULE_VERSION}-centos_linux64 ${MODULE_PATH}
 
-rm -rf sratoolkit.2.9.2-centos_linux64.tar.gz
+rm -rf sratoolkit.${MODULE_VERSION}-centos_linux64.tar.gz
 
 # create modulefile
 mkdir -p ${MODULEDIR}/${MODULE_NAME}

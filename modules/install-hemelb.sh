@@ -2,7 +2,7 @@
 
 # parse command-line arguments
 if [[ $# != 2 ]]; then
-	echo "usage: $0 <lattice-type <gpu-model>>"
+	echo "usage: $0 <lattice-type> <gpu-model>"
 	exit -1
 fi
 
